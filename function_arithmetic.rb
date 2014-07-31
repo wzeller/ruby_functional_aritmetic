@@ -18,16 +18,11 @@
 word_nums = %w[zero one two three four five six seven eight nine]
 nums = (0..9).to_a
 word_hash = Hash[word_nums.zip(nums)]
-operation = ->{}
 
 word_nums.each do |word_num|
-  define_method(word_num) do |operation = 0|
+  define_method(word_num) do |operation = nil|
     num = word_hash[word_num]
-    if operation != 0
-      operation.call(num)
-    else 
-      num
-    end
+    operation ? operation.call(num) : num
   end
 end
 
@@ -53,3 +48,4 @@ end
 def divided_by(right)
   ->(left){left / right.to_f} 
 end
+
